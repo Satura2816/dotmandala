@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review | Mandala Artistry</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background-color: #fffaf6;
+      color: #4e342e;
+      line-height: 1.7;
+    }
+
+    /* HEADER */
+    header {
+      text-align: center;
+      background-color: #ffddd2;
+      padding: 20px 0;
+    }
+    header h1 {
+      margin: 0;
+      color: #6b3e26;
+      font-size: 2rem;
+      font-weight: bold;
+      font-family: 'Georgia', serif;
+    }
+
+    /* NAVIGATION */
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      background-color: #f4c9b1;
+      padding: 15px 0;
+    }
+    nav a {
+      text-decoration: none;
+      color: #6b3e26;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background 0.2s ease;
+      cursor: pointer;
+      font-family: 'Georgia', serif;
+    }
+    nav a:hover {
+      background-color: #ffddd2;
+    }
+
+    /* CONTENT */
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 25px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #6b3e26;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #7e4e3d;
+    }
+
+    /* REVIEW FORM */
+    .review-form {
+      background: #ffffff;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+    .review-form input, .review-form textarea, .review-form select {
+      width: 100%;
+      padding: 8px;
+      margin: 6px 0 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-family: 'Georgia', serif;
+    }
+    .review-form button {
+      padding: 10px 20px;
+      background-color: #ba4a00;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-family: 'Georgia', serif;
+    }
+    .review-form button:hover {
+      background-color: #9c3b00;
+    }
+
+    /* REVIEW CARDS */
+    .review-card {
+      background: #ffffff;
+      padding: 15px 20px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .review-card h3 {
+      margin: 0;
+      color: #7e4e3d;
+      font-family: 'Georgia', serif;
+      text-align: left;
+    }
+
+    .stars {
+      color: #ba4a00;
+      margin: 5px 0;
+      font-size: 1.1rem;
+    }
+
+    .review-card p {
+      margin: 5px 0 0;
+      color: #444;
+      font-size: 0.95rem;
+      font-family: 'Georgia', serif;
+    }
+
+    .delete-btn {
+      background-color: #ff4d4d;
+      border: none;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .delete-btn:hover {
+      background-color: #e60000;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <h1>Mandala Artistry</h1>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="index.html">Gallery</a>
+    <a href="product.html">Products</a>
+    <a href="review.html">Review</a>
+    <a href="info.html">About</a>
+  </nav>
+
+  <!-- REVIEW CONTENT -->
+  <div class="content">
+    <h2>Customer Reviews</h2>
+    <p class="subtitle">Words that warm our hearts 🌸</p>
+
+    <!-- REVIEW FORM -->
+    <div class="review-form">
+      <input type="text" id="name" placeholder="Your name" required>
+      <select id="rating" required>
+        <option value="" disabled selected>Rating ⭐</option>
+        <option value="⭐">⭐</option>
+        <option value="⭐⭐">⭐⭐</option>
+        <option value="⭐⭐⭐">⭐⭐⭐</option>
+        <option value="⭐⭐⭐⭐">⭐⭐⭐⭐</option>
+        <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐</option>
+      </select>
+      <textarea id="review" placeholder="Your review" rows="3" required></textarea>
+      <button onclick="addReview()">Add Review</button>
+    </div>
+
+    <!-- REVIEWS WILL APPEAR HERE -->
+    <div id="reviewsContainer"></div>
+  </div>
+
+  <script>
+    const reviewsContainer = document.getElementById('reviewsContainer');
+
+    // Load reviews from localStorage
+    let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+
+    function displayReviews() {
+      reviewsContainer.innerHTML = '';
+      reviews.forEach((rev, index) => {
+        const div = document.createElement('div');
+        div.classList.add('review-card');
+        div.innerHTML = `
+          <div class="review-header">
+            <h3>${rev.name}</h3>
+            <button class="delete-btn" onclick="deleteReview(${index})">Delete</button>
+          </div>
+          <div class="stars">${rev.rating}</div>
+          <p>${rev.text}</p>
+        `;
+        reviewsContainer.appendChild(div);
+      });
+    }
+
+    function addReview() {
+      const name = document.getElementById('name').value.trim();
+      const rating = document.getElementById('rating').value;
+      const text = document.getElementById('review').value.trim();
+
+      if (!name || !rating || !text) return alert('Please fill all fields.');
+
+      reviews.push({name, rating, text});
+      localStorage.setItem('reviews', JSON.stringify(reviews));
+      displayReviews();
+
+      // Clear form
+      document.getElementById('name').value = '';
+      document.getElementById('rating').value = '';
+      document.getElementById('review').value = '';
+    }
+
+    function deleteReview(index) {
+      if (confirm('Delete this review?')) {
+        reviews.splice(index, 1);
+        localStorage.setItem('reviews', JSON.stringify(reviews));
+        displayReviews();
+      }
+    }
+
+    // Initial display
+    displayReviews();
+  </script>
+</body>
+</html>
