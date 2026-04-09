@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product | Mandala Artistry</title>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Georgia', serif;
+  background-color: #fffaf6;
+  color: #4e342e;
+}
+
+/* HEADER */
+header {
+  text-align: center;
+  background-color: #ffddd2;
+  padding: 20px 0;
+}
+header h1 {
+  color: #6b3e26;
+  font-size: 2rem;
+}
+
+/* NAV */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  background-color: #f4c9b1;
+  padding: 15px 0;
+  flex-wrap: wrap;
+}
+nav a {
+  text-decoration: none;
+  color: #6b3e26;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+nav a:hover {
+  background-color: #ffddd2;
+}
+
+/* GRID */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 10px;
+}
+
+/* CARD */
+.product-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+.product-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* INFO */
+.product-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+.product-info h3 {
+  font-size: 1rem;
+}
+
+/* HEART */
+.favourite {
+  cursor: pointer;
+}
+.favourite.active {
+  color: red;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Mandala Artistry</h1>
+</header>
+
+<nav>
+  <a href="index.html">Gallery</a>
+  <a href="product.html">Product</a>
+  <a href="review.html">Review</a>
+  <a href="info.html">About</a>
+</nav>
+
+<div class="product-grid">
+
+  <!-- PRODUCT 1 -->
+  <div class="product-card">
+    <img src="p1.jpg">
+    <div class="product-info">
+      <h3>Red Mandala</h3>
+      <span class="favourite">♡</span>
+    </div>
+  </div>
+
+  <!-- PRODUCT 2 -->
+  <div class="product-card">
+    <img src="p2.jpg">
+    <div class="product-info">
+      <h3>Blue Mandala</h3>
+      <span class="favourite">♡</span>
+    </div>
+  </div>
+
+  <!-- PRODUCT 3 -->
+  <div class="product-card">
+    <img src="p3.jpg">
+    <div class="product-info">
+      <h3>Green Mandala</h3>
+      <span class="favourite">♡</span>
+    </div>
+  </div>
+
+  <!-- PRODUCT 4 -->
+  <div class="product-card">
+    <img src="p4.jpg">
+    <div class="product-info">
+      <h3>Yellow Mandala</h3>
+      <span class="favourite">♡</span>
+    </div>
+  </div>
+
+  <!-- PRODUCT 5 -->
+  <div class="product-card">
+    <img src="p5.jpg">
+    <div class="product-info">
+      <h3>White Mandala</h3>
+      <span class="favourite">♡</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+document.querySelectorAll('.favourite').forEach(h => {
+  h.addEventListener('click', () => {
+    h.classList.toggle('active');
+    h.textContent = h.classList.contains('active') ? '❤️' : '♡';
+  });
+});
+</script>
+
+</body>
+</html>
